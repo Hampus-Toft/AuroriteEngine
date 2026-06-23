@@ -1,4 +1,4 @@
-# Tabletop Nexus (Replace with your actual Engine Name)
+# Aurorite Engine
 
 An open-source, event-driven 2D/3D tabletop game engine built on top of **LWJGL 3**. This engine provides a robust base framework for building, hosting, and playing modded tabletop games via Peer-to-Peer (P2P) or dedicated servers.
 

@@ -1,22 +1,23 @@
 package io.github.hampustoft.aurorite.client;
 
-import org.lwjgl.Version;
-import org.lwjgl.glfw.GLFWErrorCallback;
-import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.opengl.GL;
-import org.lwjgl.system.MemoryStack;
+import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
+import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.system.MemoryStack.stackPush;
+import static org.lwjgl.system.MemoryUtil.NULL;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.management.ManagementFactory;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
+import org.lwjgl.Version;
+import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWVidMode;
+import org.lwjgl.opengl.GL;
+import org.lwjgl.system.MemoryStack;
 
-import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryStack.stackPush;
-import static org.lwjgl.system.MemoryUtil.NULL;
 // src/main/java/io/github/hampustoft/aurorite
 public class ClientLauncher {
     private long window;
@@ -46,7 +47,7 @@ public class ClientLauncher {
         // Cocoa updates an environment variable tracking whether the JVM started on Thread 0
         String pid = ManagementFactory.getRuntimeMXBean().getName().split("@")[0];
         String env = System.getenv("JAVA_STARTED_ON_FIRST_THREAD_" + pid);
-        
+
         // If the environment variable isn't "1", we are running on a secondary thread!
         return !"1".equals(env);
     }
@@ -66,9 +67,7 @@ public class ClientLauncher {
         command.addAll(List.of(args));
 
         // Start the sub-process
-        Process process = new ProcessBuilder(command)
-                .redirectErrorStream(true)
-                .start();
+        Process process = new ProcessBuilder(command).redirectErrorStream(true).start();
 
         // Pipe the output streams so logging logs straight to your IDE/console seamlessly
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
@@ -82,7 +81,7 @@ public class ClientLauncher {
     }
 
     public void run() {
-        System.out.println("Launching Tabletop Nexus Engine using LWJGL " + Version.getVersion() + "!");
+        System.out.println("Launching Aurorite Engine Engine using LWJGL " + Version.getVersion() + "!");
         init();
         loop();
 
@@ -91,7 +90,8 @@ public class ClientLauncher {
         glfwTerminate();
         try {
             glfwSetErrorCallback(null).free();
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+        }
     }
 
     private void init() {
@@ -102,7 +102,7 @@ public class ClientLauncher {
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
-        window = glfwCreateWindow(800, 600, "Tabletop Engine Test Window", NULL, NULL);
+        window = glfwCreateWindow(800, 600, "Aurorite Engine Test Window", NULL, NULL);
         if (window == NULL) throw new RuntimeException("Failed to create the GLFW window");
 
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
@@ -117,7 +117,8 @@ public class ClientLauncher {
             glfwGetWindowSize(window, pWidth, pHeight);
             GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
             if (vidmode != null) {
-                glfwSetWindowPos(window, (vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2);
+                glfwSetWindowPos(
+                        window, (vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2);
             }
         }
 

@@ -36,9 +36,9 @@ dependencies {
 }
 
 tasks.register<JavaExec>("run") {
-    mainClass.set("com.tabletop.client.ClientLauncher")
+    mainClass.set("io.github.hampustoft.aurorite.client.ClientLauncher")
     classpath = sourceSets["main"].runtimeClasspath
-    
+
     // Smooth rendering flag required specifically for modern macOS environments
     if (System.getProperty("os.name").lowercase().contains("mac")) {
         jvmArgs("-XstartOnFirstThread")

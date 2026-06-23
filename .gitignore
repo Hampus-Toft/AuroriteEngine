@@ -1,4 +1,8 @@
 .gradle
 **/build/
+**/bin/
+gradlew
+gradlew.bat
+gradle/wrapper
 
 .vscode

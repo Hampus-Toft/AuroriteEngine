@@ -1,5 +1,5 @@
 // WIP name
-rootProject.name = "tabletop-nexus"
+rootProject.name = "aurorite-engine"
 
 include("api")
 include("core")

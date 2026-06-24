@@ -19,6 +19,7 @@ val platformClassifier = when {
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":api"))
 
     // Base LWJGL API libraries (Platform independent jars)
     implementation(libs.lwjgl)

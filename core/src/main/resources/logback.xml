@@ -1,0 +1,22 @@
+<configuration scan="true" scanPeriod="30 seconds">
+    <import class="ch.qos.logback.classic.encoder.PatternLayoutEncoder"/>
+    <import class="ch.qos.logback.core.ConsoleAppender"/>
+
+    <appender name="CONSOLE" class="ConsoleAppender">
+        <withJansi>true</withJansi>
+        <encoder class="PatternLayoutEncoder">>
+            <pattern>%gray(%d{HH:mm:ss.SS}) [%cyan(%logger{36})#%thread/%-7(%highlight(%level)]:) %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="CONSOLE" />
+        <queueSize>1024</queueSize>
+        <discardingThreshold>0</discardingThreshold> 
+        <neverBlock>true</neverBlock> 
+    </appender>
+
+    <root level="TRACE">
+        <appender-ref ref="ASYNC" />
+    </root>
+</configuration>

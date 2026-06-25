@@ -1,3 +1,9 @@
+plugins {
+    id("java-library") // Enables the 'api' dependency configuration
+    // Keep your other plugins like spotless here
+}
+
 dependencies {
-    // Add any lightweight third-party utilities here if needed (like JSON libraries)
+    // Now 'api' will resolve perfectly
+    api("org.slf4j:slf4j-api:2.0.13")
 }

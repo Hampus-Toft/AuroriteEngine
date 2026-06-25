@@ -4,8 +4,11 @@ import io.github.hampustoft.aurorite.api.loading.InitializationProgress;
 import io.github.hampustoft.aurorite.core.di.AuroriteEngineContext;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class BackgroundInitializationTask implements Runnable {
+    private static final Logger LOGGER = LoggerFactory.getLogger("Back");
     private static final AtomicBoolean READY = new AtomicBoolean(false);
     private static final AtomicReference<InitializationProgress> PROGRESS =
             new AtomicReference<>(InitializationProgress.initial());
@@ -20,11 +23,19 @@ public final class BackgroundInitializationTask implements Runnable {
 
     @Override
     public void run() {
-        final int totalSteps = 3;
+        final int totalSteps = 5;
 
+        LOGGER.trace("Starting step 1");
         this.executeStep(1, totalSteps, "Scanning local mod directories...");
+        LOGGER.trace("Starting step 2");
         this.executeStep(2, totalSteps, "Verifying API layer dependency trees...");
+        LOGGER.trace("Starting step 3");
         this.executeStep(3, totalSteps, "Freezing core engine subsystem configurations...");
+        LOGGER.trace("Starting step 4");
+        this.executeStep(4, totalSteps, "Random Stuff...");
+        LOGGER.trace("Starting step 5");
+        this.executeStep(5, totalSteps, "Almost ready now...");
+        LOGGER.trace("All steps are done");
 
         AuroriteEngineContext.getInstance().setLobbyInitState();
         READY.set(true);
